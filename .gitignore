@@ -1,0 +1,12 @@
+# İç yapım/satış kılavuzu — public repoda yer almaz
+CLAUDE_emlak.md
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editör
+.vscode/
+.idea/
+*.swp
