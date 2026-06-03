@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEMO Ticari — İstanbul Ticari Gayrimenkul Uzmanları</title>
+  <meta name="description" content="DEMO Ticari Gayrimenkul — ofis, plaza, mağaza ve depo kiralama & satışında İstanbul'un güvenilir adresi." />
+  <meta name="theme-color" content="#09111F" />
+
+  <meta property="og:title" content="DEMO Ticari — İstanbul Ticari Gayrimenkul" />
+  <meta property="og:description" content="Ofis, plaza, mağaza ve lojistik gayrimenkulde kurumsal çözümler." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --navy: #09111F;
+      --navy-soft: #111B2E;
+      --navy-border: #1E2D45;
+      --white: #FFFFFF;
+      --white-muted: #C8D4E3;
+      --blue: #2563EB;
+      --blue-light: #3B82F6;
+      --blue-pale: #EFF6FF;
+      --silver: #94A3B8;
+      --accent: #38BDF8;
+
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 8rem;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      --transition: 0.3s ease;
+      --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      --shadow: 0 4px 24px rgba(0,0,0,0.35);
+      --shadow-blue: 0 8px 32px rgba(37,99,235,0.25);
+
+      --max-width: 1280px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--white-muted);
+      line-height: 1.65;
+      font-weight: 400;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    ul { list-style: none; }
+    h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; }
+
+    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-md); }
+    .section { padding: var(--space-xl) 0; }
+
+    .blue { color: var(--blue-light); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent); border-radius: 2px; }
+
+    .section-head { max-width: 640px; margin-bottom: var(--space-lg); }
+    .section-head h2 { font-size: clamp(2.2rem, 4.5vw, 3.6rem); color: var(--white); margin: 0.8rem 0; }
+    .section-head p { color: var(--silver); font-size: 1.05rem; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-blue:hover { background: var(--blue-light); transform: translateY(-2px); box-shadow: var(--shadow-blue); }
+    .btn-outline { border: 1.5px solid var(--navy-border); color: var(--white-muted); }
+    .btn-outline:hover { border-color: var(--blue-light); color: var(--blue-light); }
+    .btn-ghost { border: 1.5px solid rgba(255,255,255,0.15); color: var(--white-muted); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid transparent;
+      transition: background var(--transition), padding var(--transition), border-color var(--transition);
+    }
+    .nav.scrolled {
+      background: rgba(9,17,31,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--navy-border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--white);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-light); margin-bottom: 4px; }
+    .logo small { display: block; font-family: var(--font-body); font-size: 0.5rem; letter-spacing: 0.35em; color: var(--silver); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { font-size: 0.84rem; font-weight: 500; color: var(--white-muted); transition: color var(--transition); letter-spacing: 0.02em; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { display: flex; align-items: center; gap: 1rem; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; width: 28px; }
+    .hamburger span { display: block; height: 2px; background: var(--white); transition: var(--transition); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .drawer {
+      position: fixed; inset: 0; z-index: 1050;
+      background: rgba(9,17,31,0.97);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+      opacity: 0; pointer-events: none; transition: opacity var(--transition);
+    }
+    .drawer.open { opacity: 1; pointer-events: all; }
+    .drawer a { font-family: var(--font-display); font-size: 2rem; color: var(--white); }
+    .drawer a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      min-height: 100dvh;
+      display: flex; align-items: center;
+      padding-top: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(9,17,31,0.97) 40%, rgba(37,99,235,0.08) 100%),
+        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80') center/cover;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 800px 600px at 70% 50%, rgba(37,99,235,0.12) 0%, transparent 70%);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      align-items: center;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-content { max-width: 600px; }
+    .hero h1 { font-size: clamp(2.8rem, 6vw, 5.2rem); color: var(--white); margin: 1.2rem 0; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p { font-size: 1.1rem; color: var(--silver); max-width: 480px; margin-bottom: var(--space-md); line-height: 1.7; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--navy-border);
+    }
+    .hero-stat .val { font-family: var(--font-display); font-size: 2.2rem; color: var(--white); line-height: 1; }
+    .hero-stat .lbl { font-size: 0.75rem; color: var(--silver); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem; }
+    .hero-visual {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 0.8rem;
+      height: 520px;
+    }
+    .hero-img {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-slow); }
+    .hero-img:hover img { transform: scale(1.05); }
+    .hero-img:first-child { grid-row: span 2; }
+    .hero-badge-v {
+      position: absolute;
+      bottom: 1.5rem; right: 1.5rem;
+      background: var(--blue);
+      color: #fff;
+      padding: 1rem 1.4rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-blue);
+      z-index: 2;
+    }
+    .hero-badge-v .num { font-family: var(--font-display); font-size: 1.8rem; line-height: 1; }
+    .hero-badge-v .lbl { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; }
+
+    /* Marquee */
+    .marquee-wrap { background: var(--blue); padding: 0.8rem 0; overflow: hidden; }
+    .marquee-track {
+      display: flex; gap: 3rem;
+      animation: marquee 24s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-track span { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.85); }
+    .marquee-track span::before { content: '·'; margin-right: 3rem; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* Stats bar */
+    .statsbar { background: var(--navy-soft); border-top: 1px solid var(--navy-border); border-bottom: 1px solid var(--navy-border); }
+    .statsbar-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .sbar-item {
+      padding: 2.5rem var(--space-md);
+      text-align: center;
+      border-right: 1px solid var(--navy-border);
+    }
+    .sbar-item:last-child { border-right: none; }
+    .sbar-item .val { font-family: var(--font-display); font-size: clamp(2.4rem, 4vw, 3.4rem); color: var(--white); line-height: 1; }
+    .sbar-item .lbl { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--silver); margin-top: 0.6rem; }
+
+    /* Property Types */
+    .types-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+    .type-card {
+      background: var(--navy-soft);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.6rem;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .type-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 3px; width: 0;
+      background: var(--blue-light);
+      transition: width var(--transition-slow);
+    }
+    .type-card:hover { border-color: rgba(59,130,246,0.4); transform: translateY(-4px); }
+    .type-card:hover::before { width: 100%; }
+    .type-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-sm);
+      background: rgba(37,99,235,0.12);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.2rem;
+      transition: var(--transition);
+    }
+    .type-card:hover .type-icon { background: var(--blue); }
+    .type-card:hover .type-icon svg { color: #fff; }
+    .type-icon svg { width: 24px; height: 24px; color: var(--blue-light); transition: var(--transition); }
+    .type-card h3 { font-family: var(--font-body); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+    .type-card p { font-size: 0.85rem; color: var(--silver); }
+    .type-count { margin-top: 1.2rem; font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; }
+
+    /* Listings */
+    .filter-bar {
+      display: flex; gap: 0.6rem; flex-wrap: wrap;
+      margin-bottom: var(--space-md);
+      align-items: center;
+    }
+    .fchip {
+      padding: 0.5rem 1.2rem;
+      border-radius: var(--radius-full);
+      border: 1.5px solid var(--navy-border);
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--silver);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .fchip.active, .fchip:hover { border-color: var(--blue-light); color: var(--blue-light); background: rgba(59,130,246,0.08); }
+    .listings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .lcard {
+      background: var(--navy-soft);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .lcard:hover { transform: translateY(-5px); border-color: rgba(59,130,246,0.35); }
+    .lcard-thumb { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+    .lcard-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-slow); }
+    .lcard:hover .lcard-thumb img { transform: scale(1.06); }
+    .lbadge {
+      position: absolute; top: 1rem; left: 1rem; z-index: 2;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      border-radius: var(--radius-full);
+    }
+    .lbadge-satilik { background: var(--blue); color: #fff; }
+    .lbadge-kiralik { background: rgba(56,189,248,0.9); color: var(--navy); }
+    .lcard-body { padding: 1.4rem; }
+    .lcard-body h3 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+    .lcard-loc { font-size: 0.82rem; color: var(--silver); display: flex; align-items: center; gap: 0.35rem; margin-bottom: 1rem; }
+    .lcard-loc svg { width: 13px; height: 13px; color: var(--accent); }
+    .lcard-price { font-family: var(--font-display); font-size: 1.5rem; color: var(--blue-light); margin-bottom: 1rem; }
+    .lcard-specs {
+      display: flex; gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--navy-border);
+      font-size: 0.8rem; color: var(--white-muted);
+    }
+    .lcard-specs span { display: flex; align-items: center; gap: 0.35rem; }
+    .lcard-specs svg { width: 14px; height: 14px; color: var(--blue-light); }
+    .load-more-row { text-align: center; margin-top: var(--space-lg); }
+
+    /* Why Us */
+    .why { background: var(--navy-soft); border-top: 1px solid var(--navy-border); border-bottom: 1px solid var(--navy-border); }
+    .why-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-lg); align-items: center; }
+    .why-visual { position: relative; border-radius: var(--radius-lg); overflow: hidden; height: 480px; }
+    .why-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .why-visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(37,99,235,0.3) 0%, transparent 60%); }
+    .why-card-float {
+      position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+      background: rgba(9,17,31,0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      z-index: 2;
+    }
+    .why-card-float p { font-size: 0.9rem; color: var(--white-muted); font-style: italic; }
+    .why-card-float .who { margin-top: 0.8rem; font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+    .why-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .why-item {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      padding: 1.4rem;
+      background: rgba(37,99,235,0.05);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+    .why-item:hover { border-color: rgba(59,130,246,0.4); background: rgba(37,99,235,0.1); }
+    .why-num { font-family: var(--font-display); font-size: 1.6rem; color: var(--blue-light); min-width: 2.5rem; line-height: 1; margin-top: 0.1rem; }
+    .why-item h4 { font-family: var(--font-body); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+    .why-item p { font-size: 0.88rem; color: var(--silver); }
+
+    /* Services */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .srv-card {
+      padding: 2rem;
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .srv-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--accent));
+      transform: scaleX(0);
+      transition: transform var(--transition-slow);
+      transform-origin: left;
+    }
+    .srv-card:hover::after { transform: scaleX(1); }
+    .srv-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-4px); }
+    .srv-icon { width: 50px; height: 50px; border-radius: var(--radius-sm); background: rgba(37,99,235,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; }
+    .srv-icon svg { width: 24px; height: 24px; color: var(--blue-light); }
+    .srv-card h3 { font-family: var(--font-body); font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; }
+    .srv-card p { font-size: 0.88rem; color: var(--silver); line-height: 1.65; }
+
+    /* Team */
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+    .team-card {
+      background: var(--navy-soft);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .team-card:hover { border-color: rgba(59,130,246,0.4); transform: translateY(-4px); }
+    .team-thumb { aspect-ratio: 3/4; overflow: hidden; }
+    .team-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-slow); filter: grayscale(0.3); }
+    .team-card:hover .team-thumb img { transform: scale(1.04); filter: grayscale(0); }
+    .team-body { padding: 1.4rem; }
+    .team-body h3 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; color: var(--white); }
+    .team-body .role { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .team-body .area { font-size: 0.82rem; color: var(--silver); margin-bottom: 1rem; }
+    .team-socials { display: flex; gap: 0.6rem; }
+    .team-socials a { width: 34px; height: 34px; border: 1px solid var(--navy-border); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--silver); transition: var(--transition); }
+    .team-socials a:hover { border-color: var(--blue-light); color: var(--blue-light); }
+    .team-socials svg { width: 16px; height: 16px; }
+
+    /* Testimonials */
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .testi-card {
+      background: var(--navy-soft);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
+      transition: var(--transition);
+    }
+    .testi-card:hover { border-color: rgba(59,130,246,0.3); }
+    .testi-stars { display: flex; gap: 0.2rem; margin-bottom: 1rem; }
+    .testi-stars svg { width: 16px; height: 16px; color: var(--blue-light); fill: var(--blue-light); }
+    .testi-text { font-family: var(--font-display); font-size: 1.15rem; font-style: italic; color: var(--white-muted); line-height: 1.5; margin-bottom: 1.4rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.8rem; padding-top: 1rem; border-top: 1px solid var(--navy-border); }
+    .testi-av { width: 42px; height: 42px; border-radius: 50%; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; }
+    .testi-name { color: var(--white); font-weight: 600; font-size: 0.92rem; }
+    .testi-meta { color: var(--silver); font-size: 0.76rem; }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .contact-form input, .contact-form textarea, .contact-form select {
+      background: var(--navy-soft);
+      border: 1.5px solid var(--navy-border);
+      color: var(--white-muted);
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      width: 100%;
+      transition: var(--transition);
+    }
+    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { outline: none; border-color: var(--blue-light); }
+    .contact-form select option { background: var(--navy); }
+    .contact-form textarea { resize: vertical; min-height: 120px; }
+    .contact-form .error { border-color: #ef4444; }
+    .field-err { color: #f87171; font-size: 0.74rem; margin-top: -0.6rem; display: none; }
+    .field-err.show { display: block; }
+    #formSuccess { display: none; align-items: center; gap: 0.6rem; background: rgba(37,99,235,0.1); border: 1px solid var(--blue-light); color: var(--blue-light); padding: 0.9rem 1.1rem; border-radius: var(--radius-sm); font-size: 0.88rem; }
+    #formSuccess.show { display: flex; }
+    .contact-info { display: flex; flex-direction: column; gap: 1.4rem; }
+    .info-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .info-ic { width: 44px; height: 44px; flex-shrink: 0; border: 1px solid var(--navy-border); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+    .info-ic svg { width: 20px; height: 20px; color: var(--blue-light); }
+    .info-item h4 { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--silver); margin-bottom: 0.2rem; }
+    .info-item p { color: var(--white-muted); font-size: 0.92rem; }
+    .map-frame { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--navy-border); filter: grayscale(1) invert(0.88) contrast(0.85); }
+    .map-frame iframe { width: 100%; height: 200px; border: 0; display: block; }
+
+    /* Footer */
+    footer { background: var(--navy-soft); border-top: 1px solid var(--navy-border); padding-top: var(--space-lg); }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--space-md); padding-bottom: var(--space-lg); }
+    .footer-brand p { color: var(--silver); font-size: 0.88rem; max-width: 270px; margin-top: 0.8rem; line-height: 1.65; }
+    .footer-col h4 { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+    .footer-col a { display: block; color: var(--silver); font-size: 0.88rem; padding: 0.3rem 0; transition: var(--transition); }
+    .footer-col a:hover { color: var(--white); padding-left: 5px; }
+    .footer-bottom { border-top: 1px solid var(--navy-border); padding: 1.4rem 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.78rem; color: var(--silver); }
+    .footer-bottom a { color: var(--blue-light); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .reveal:nth-child(2) { transition-delay: 0.08s; }
+    .reveal:nth-child(3) { transition-delay: 0.16s; }
+    .reveal:nth-child(4) { transition-delay: 0.24s; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .statsbar-grid { grid-template-columns: repeat(2, 1fr); }
+      .sbar-item:nth-child(2) { border-right: none; }
+      .sbar-item:nth-child(3) { border-top: 1px solid var(--navy-border); }
+      .types-grid { grid-template-columns: repeat(2, 1fr); }
+      .listings-grid, .services-grid, .team-grid, .testi-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-visual { height: 340px; }
+    }
+    @media (max-width: 860px) {
+      :root { --space-xl: 5rem; --space-lg: 3rem; }
+      .nav-links, .nav-cta .btn { display: none; }
+      .hamburger { display: flex; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { height: 360px; order: -1; }
+      .hero { padding-top: 7rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .container { padding: 0 1.2rem; }
+      .types-grid, .listings-grid, .services-grid, .team-grid, .testi-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .statsbar-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#hero" class="logo">
+        DEMO<div class="logo-dot"></div>
+        <small>ticari</small>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#types">Mülk Tipleri</a></li>
+        <li><a href="#listings">İlanlar</a></li>
+        <li><a href="#services">Hizmetler</a></li>
+        <li><a href="#team">Ekip</a></li>
+        <li><a href="#contact">İletişim</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-blue">Teklif Al</a>
+        <button class="hamburger" id="hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="drawer" id="drawer">
+    <a href="#types">Mülk Tipleri</a>
+    <a href="#listings">İlanlar</a>
+    <a href="#services">Hizmetler</a>
+    <a href="#team">Ekip</a>
+    <a href="#contact">İletişim</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow">İstanbul · Ticari Gayrimenkul</span>
+        <h1>İşinize Değer Katan <em>Ticari</em> Alanlar</h1>
+        <p>Ofis, plaza, mağaza ve lojistik mülklerde kurumsal danışmanlık. Markanıza en doğru adresi buluyoruz.</p>
+        <div class="hero-actions">
+          <a href="#listings" class="btn btn-blue">İlanları İncele <i data-lucide="arrow-right"></i></a>
+          <a href="#contact" class="btn btn-ghost">Danışman Talep Et</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="val" data-target="620" data-suffix="+">0</div><div class="lbl">Kapatılan Sözleşme</div></div>
+          <div class="hero-stat"><div class="val" data-target="180" data-suffix="+">0</div><div class="lbl">Kurumsal Müşteri</div></div>
+          <div class="hero-stat"><div class="val" data-target="12" data-suffix=" Yıl">0</div><div class="lbl">Sektör Deneyimi</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80" alt="Plaza" loading="lazy" /></div>
+        <div class="hero-img"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Ofis" loading="lazy" /></div>
+        <div class="hero-img"><img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=600&q=80" alt="Kurumsal" loading="lazy" /></div>
+        <div class="hero-badge-v">
+          <div class="num">A+</div>
+          <div class="lbl">Portföy Kalitesi</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Ofis Kiralama</span><span>Plaza Satışı</span><span>Mağaza Kiralama</span><span>Depo & Lojistik</span>
+      <span>Kurumsal Portföy</span><span>Fizibilite Analizi</span><span>Due Diligence</span><span>Değerleme</span>
+      <span>Ofis Kiralama</span><span>Plaza Satışı</span><span>Mağaza Kiralama</span><span>Depo & Lojistik</span>
+      <span>Kurumsal Portföy</span><span>Fizibilite Analizi</span><span>Due Diligence</span><span>Değerleme</span>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <section class="statsbar">
+    <div class="container">
+      <div class="statsbar-grid">
+        <div class="sbar-item reveal"><div class="val" data-target="620" data-suffix="+">0</div><div class="lbl">Kapatılan Sözleşme</div></div>
+        <div class="sbar-item reveal"><div class="val" data-target="3.8" data-prefix="₺" data-suffix=" Milyar" data-decimals="1">0</div><div class="lbl">İşlem Hacmi</div></div>
+        <div class="sbar-item reveal"><div class="val" data-target="98" data-prefix="%" >0</div><div class="lbl">Doluluk Başarısı</div></div>
+        <div class="sbar-item reveal"><div class="val" data-target="180" data-suffix="+">0</div><div class="lbl">Kurumsal Müşteri</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROPERTY TYPES -->
+  <section class="section" id="types">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Uzmanlık Alanlarımız</span>
+        <h2>Mülk Tipleri</h2>
+        <p>Ticari gayrimenkulün tüm kategorilerinde kapsamlı portföy ve derin pazar bilgisi.</p>
+      </div>
+      <div class="types-grid">
+        <div class="type-card reveal">
+          <div class="type-icon"><i data-lucide="building-2"></i></div>
+          <h3>Ofis & Kiralık Makam</h3>
+          <p>A, B ve C sınıfı ofis alanları — küçük ofisten tam kat kiralama ve satışa.</p>
+          <div class="type-count">48 aktif ilan</div>
+        </div>
+        <div class="type-card reveal">
+          <div class="type-icon"><i data-lucide="building"></i></div>
+          <h3>Plaza & AVM</h3>
+          <p>Kurumsal plaza katları, alışveriş merkezi kiralama ve ticari blok satışları.</p>
+          <div class="type-count">27 aktif ilan</div>
+        </div>
+        <div class="type-card reveal">
+          <div class="type-icon"><i data-lucide="store"></i></div>
+          <h3>Mağaza & Dükkan</h3>
+          <p>Cadde üzeri ve plaza mağazaları — perakende ve F&B odaklı lokasyonlar.</p>
+          <div class="type-count">61 aktif ilan</div>
+        </div>
+        <div class="type-card reveal">
+          <div class="type-icon"><i data-lucide="warehouse"></i></div>
+          <h3>Depo & Lojistik</h3>
+          <p>Soğuk depo, organize sanayi ve lojistik merkezi alanları.</p>
+          <div class="type-count">33 aktif ilan</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTINGS -->
+  <section class="section" id="listings">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Güncel Portföy</span>
+        <h2>Seçili İlanlar</h2>
+        <p>En yeni ticari gayrimenkul fırsatları.</p>
+      </div>
+      <div class="filter-bar reveal" id="filterBar">
+        <button class="fchip active" data-filter="all">Tümü</button>
+        <button class="fchip" data-filter="satilik">Satılık</button>
+        <button class="fchip" data-filter="kiralik">Kiralık</button>
+        <button class="fchip" data-filter="ofis">Ofis</button>
+        <button class="fchip" data-filter="magaza">Mağaza</button>
+        <button class="fchip" data-filter="depo">Depo</button>
+      </div>
+      <div class="listings-grid" id="listingsGrid"></div>
+      <div class="load-more-row reveal">
+        <button class="btn btn-outline" id="loadMore">Daha Fazla <i data-lucide="plus"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section why">
+    <div class="container why-grid">
+      <div class="why-visual reveal">
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&q=80" alt="Kurumsal ofis" />
+        <div class="why-card-float">
+          <p>İstanbul ticari piyasasındaki her işlemde şeffaf, veriye dayalı ve hızlı hareket ediyorlar. Kesinlikle tavsiye ederim.</p>
+          <div class="who">— Serkan D., CFO · İstanbul</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-head reveal" style="margin-bottom: var(--space-md);">
+          <span class="eyebrow">Neden Biz</span>
+          <h2>Kurumsal Güven, Uzman Kadro</h2>
+          <p>12 yıldır İstanbul'un ticari gayrimenkul piyasasında kurumsal müşterilere hizmet veriyoruz.</p>
+        </div>
+        <div class="why-list">
+          <div class="why-item reveal"><span class="why-num">01</span><div><h4>Derin Piyasa Bilgisi</h4><p>İstanbul'un tüm ticari koridorlarında güncel fiyat ve talep verisine sahibiz.</p></div></div>
+          <div class="why-item reveal"><span class="why-num">02</span><div><h4>Kurumsal Süreç</h4><p>Due diligence, fizibilite ve yasal kontrol süreçlerini kendi bünyemizde tamamlıyoruz.</p></div></div>
+          <div class="why-item reveal"><span class="why-num">03</span><div><h4>Hızlı Kapanış</h4><p>Ortalama 28 gün kapanış süresiyle sektör ortalamasının 2 katı hızındayız.</p></div></div>
+          <div class="why-item reveal"><span class="why-num">04</span><div><h4>Kiracı Yönetimi</h4><p>Kiralama sonrası sözleşme, bakım ve yenileme süreçlerinde 7/24 destek.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Hizmet Paketleri</span>
+        <h2>Ne Sunuyoruz</h2>
+        <p>Ticari gayrimenkulde uçtan uca kurumsal çözümler.</p>
+      </div>
+      <div class="services-grid">
+        <div class="srv-card reveal">
+          <div class="srv-icon"><i data-lucide="briefcase"></i></div>
+          <h3>Kiralık Ofis Danışmanlığı</h3>
+          <p>İhtiyaç analizi, yer turu, fiyat müzakeresi ve sözleşme yönetimi dahil komple hizmet.</p>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-icon"><i data-lucide="trending-up"></i></div>
+          <h3>Yatırım Danışmanlığı</h3>
+          <p>Ticari portföy oluşturma, getiri analizi ve piyasa değerleme raporları.</p>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-icon"><i data-lucide="users"></i></div>
+          <h3>Kiracı Temsili</h3>
+          <p>Şirketlerin ofis taşıma ve yeni lokasyon süreçlerinde bütünleşik temsil hizmeti.</p>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-icon"><i data-lucide="file-search"></i></div>
+          <h3>Fizibilite & Değerleme</h3>
+          <p>Lisanslı değerleme uzmanlarımızla bağımsız piyasa değeri ve kira analizi raporları.</p>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-icon"><i data-lucide="settings"></i></div>
+          <h3>Mülk Yönetimi</h3>
+          <p>Portföyünüzün bakım, kira takibi ve kiracı ilişkileri yönetimini üstleniyoruz.</p>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-icon"><i data-lucide="globe"></i></div>
+          <h3>Uluslararası Şirketler</h3>
+          <p>İstanbul'a giriş yapan yabancı şirketlere anahtar teslim lokasyon ve kurulum desteği.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section" id="team">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Uzman Kadro</span>
+        <h2>Danışmanlarımız</h2>
+        <p>Kurumsal müşterilere özel, sektör deneyimli ekibimiz.</p>
+      </div>
+      <div class="team-grid" id="teamGrid"></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Referanslar</span>
+        <h2>Müşterilerimiz Ne Diyor</h2>
+      </div>
+      <div class="testi-grid" id="testiGrid"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">İletişim</span>
+        <h2>Teklif & Danışmanlık Talebi</h2>
+        <p>Formı doldurun, kurumsal danışmanımız sizi en kısa sürede arasın.</p>
+      </div>
+      <div class="contact-grid">
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="form-row">
+            <div>
+              <input type="text" id="cName" placeholder="Ad Soyad" />
+              <div class="field-err" data-for="cName">Lütfen adınızı girin.</div>
+            </div>
+            <div>
+              <input type="text" id="cCompany" placeholder="Şirket Adı" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <input type="tel" id="cPhone" placeholder="Telefon" />
+              <div class="field-err" data-for="cPhone">Telefon numarası gerekli.</div>
+            </div>
+            <div>
+              <input type="email" id="cEmail" placeholder="Kurumsal E-posta" />
+              <div class="field-err" data-for="cEmail">Geçerli e-posta girin.</div>
+            </div>
+          </div>
+          <select id="cService">
+            <option value="">Hizmet Seçin</option>
+            <option>Kiralık Ofis Danışmanlığı</option>
+            <option>Yatırım Danışmanlığı</option>
+            <option>Mülk Yönetimi</option>
+            <option>Fizibilite & Değerleme</option>
+            <option>Diğer</option>
+          </select>
+          <textarea id="cMessage" placeholder="Talebinizi kısaca açıklayın — alan, lokasyon, bütçe..."></textarea>
+          <div class="field-err" data-for="cMessage">Lütfen mesajınızı yazın.</div>
+          <button type="submit" class="btn btn-blue"><i data-lucide="send"></i> Gönder</button>
+          <div id="formSuccess"><i data-lucide="check-circle"></i> Talebiniz alındı! En kısa sürede sizi arayacağız.</div>
+        </form>
+        <div class="contact-info reveal">
+          <div class="info-item">
+            <div class="info-ic"><i data-lucide="map-pin"></i></div>
+            <div><h4>Merkez Ofis</h4><p>Büyükdere Cad. Yapı Kredi Plaza<br/>Levent / İstanbul</p></div>
+          </div>
+          <div class="info-item">
+            <div class="info-ic"><i data-lucide="phone"></i></div>
+            <div><h4>Kurumsal Hat</h4><p>+90 212 000 00 01</p></div>
+          </div>
+          <div class="info-item">
+            <div class="info-ic"><i data-lucide="mail"></i></div>
+            <div><h4>E-posta</h4><p>kurumsal@demoticari.com</p></div>
+          </div>
+          <div class="info-item">
+            <div class="info-ic"><i data-lucide="clock"></i></div>
+            <div><h4>Çalışma Saatleri</h4><p>Hafta içi 08:30 – 19:00</p></div>
+          </div>
+          <div class="map-frame">
+            <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Levent,Be%C5%9Fikta%C5%9F,%C4%B0stanbul&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="logo">DEMO<div class="logo-dot"></div></a>
+          <p>İstanbul'un ticari gayrimenkul piyasasında kurumsal çözümler. 12 yıldır güvenle.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Hızlı Linkler</h4>
+          <a href="#types">Mülk Tipleri</a>
+          <a href="#listings">İlanlar</a>
+          <a href="#team">Ekip</a>
+          <a href="#contact">İletişim</a>
+        </div>
+        <div class="footer-col">
+          <h4>Hizmetler</h4>
+          <a href="#services">Ofis Danışmanlığı</a>
+          <a href="#services">Yatırım</a>
+          <a href="#services">Mülk Yönetimi</a>
+          <a href="#services">Değerleme</a>
+        </div>
+        <div class="footer-col">
+          <h4>İletişim</h4>
+          <a href="#">+90 212 000 00 01</a>
+          <a href="#">kurumsal@demoticari.com</a>
+          <a href="#">Levent, İstanbul</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 DEMO Ticari Gayrimenkul. Tüm hakları saklıdır.</span>
+        <span>Web tasarımı · <a href="#">studyo</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const listings = [
+      { id:1, title:"Levent A Sınıfı Ofis Katı", loc:"Levent, İstanbul", type:"kiralik", cat:"ofis", price:"₺185.000 / ay", priceNum:185000, m2:750, detail:"Açık Plan", badge:"KİRALIK", img:"https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" },
+      { id:2, title:"Maslak Plaza Katı", loc:"Maslak, İstanbul", type:"satilik", cat:"ofis", price:"₺48.500.000", priceNum:48500000, m2:1200, detail:"Tam Kat", badge:"SATILIK", img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" },
+      { id:3, title:"Bağcılar Lojistik Merkezi", loc:"Bağcılar, İstanbul", type:"kiralik", cat:"depo", price:"₺95.000 / ay", priceNum:95000, m2:3200, detail:"Soğuk Depo", badge:"KİRALIK", img:"https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" },
+      { id:4, title:"Nişantaşı Cadde Mağazası", loc:"Nişantaşı, İstanbul", type:"kiralik", cat:"magaza", price:"₺75.000 / ay", priceNum:75000, m2:180, detail:"Cadde Üzeri", badge:"KİRALIK", img:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80" },
+      { id:5, title:"Ataşehir Kurumsal Ofis", loc:"Ataşehir, İstanbul", type:"satilik", cat:"ofis", price:"₺22.000.000", priceNum:22000000, m2:580, detail:"5. Kat", badge:"SATILIK", img:"https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=800&q=80" },
+      { id:6, title:"Bahçelievler AVM Ünitesi", loc:"Bahçelievler, İstanbul", type:"kiralik", cat:"magaza", price:"₺42.000 / ay", priceNum:42000, m2:95, detail:"AVM İçi", badge:"KİRALIK", img:"https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&q=80" },
+      { id:7, title:"Beylikdüzü Organize Depo", loc:"Beylikdüzü, İstanbul", type:"satilik", cat:"depo", price:"₺18.200.000", priceNum:18200000, m2:4500, detail:"OSB İçi", badge:"SATILIK", img:"https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80" },
+      { id:8, title:"Şişli Ofis Alanı", loc:"Şişli, İstanbul", type:"kiralik", cat:"ofis", price:"₺68.000 / ay", priceNum:68000, m2:320, detail:"Hazır Ofis", badge:"KİRALIK", img:"https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&q=80" },
+      { id:9, title:"Kadıköy Ticari Dükkan", loc:"Kadıköy, İstanbul", type:"kiralik", cat:"magaza", price:"₺28.500 / ay", priceNum:28500, m2:65, detail:"Köşe Başı", badge:"KİRALIK", img:"https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?w=800&q=80" }
+    ];
+
+    const agents = [
+      { name:"Emre Karakaş", role:"Ofis & Plaza Uzmanı", area:"CBD'ler · Levent, Maslak, Şişli", img:"https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" },
+      { name:"Zeynep Taşkın", role:"Perakende Uzmanı", area:"Perakende & F&B · Kadıköy, Nişantaşı", img:"https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80" },
+      { name:"Burak Öztürk", role:"Lojistik & Sanayi", area:"Depo & Lojistik · Bağcılar, Beylikdüzü", img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80" }
+    ];
+
+    const testimonials = [
+      { text:"DEMO Ticari ekibi, yeni ofisimiz için mükemmel lokasyonu 3 haftada buldu. Süreç son derece profesyoneldi.", name:"Serkan D.", meta:"CFO · Teknoloji Şirketi", initial:"S" },
+      { text:"Mağaza zincirinin İstanbul genişlemesinde 8 lokasyonu birlikte kapattık. Her birinde net ve hızlı süreç.", name:"Filiz K.", meta:"Genel Müdür · Perakende", initial:"F" },
+      { text:"Lojistik depo arayışımızda piyasanın gerçek bilgisine sahip tek firma buydu. Teşekkürler.", name:"Okan Y.", meta:"Operasyon Direktörü", initial:"O" }
+    ];
+
+    const icon = n => `<i data-lucide="${n}"></i>`;
+    const INITIAL = 6;
+
+    function renderListings(filter = 'all') {
+      const data = listings.filter(l => filter === 'all' || l.type === filter || l.cat === filter);
+      const grid = document.getElementById('listingsGrid');
+      grid.innerHTML = data.map((l, i) => `
+        <article class="lcard ${i >= INITIAL ? 'hidden-l' : ''}">
+          <div class="lcard-thumb">
+            <span class="lbadge lbadge-${l.type}">${l.badge}</span>
+            <img src="${l.img}" alt="${l.title}" loading="lazy" />
+          </div>
+          <div class="lcard-body">
+            <h3>${l.title}</h3>
+            <div class="lcard-loc">${icon('map-pin')} ${l.loc}</div>
+            <div class="lcard-price">${l.price}</div>
+            <div class="lcard-specs">
+              <span>${icon('maximize')} ${l.m2} m²</span>
+              <span>${icon('building-2')} ${l.detail}</span>
+            </div>
+          </div>
+        </article>`).join('');
+      lucide.createIcons();
+    }
+
+    document.getElementById('filterBar').addEventListener('click', e => {
+      const chip = e.target.closest('.fchip');
+      if (!chip) return;
+      document.querySelectorAll('.fchip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      renderListings(chip.dataset.filter);
+    });
+
+    document.getElementById('loadMore').addEventListener('click', function () {
+      document.querySelectorAll('.hidden-l').forEach((c, i) => {
+        c.classList.remove('hidden-l');
+        c.style.opacity = 0; c.style.transform = 'translateY(28px)';
+        c.style.transition = 'opacity .5s ease, transform .5s ease';
+        requestAnimationFrame(() => setTimeout(() => { c.style.opacity = 1; c.style.transform = 'none'; }, i * 80));
+      });
+      this.style.display = 'none';
+    });
+
+    document.getElementById('teamGrid').innerHTML = agents.map(a => `
+      <article class="team-card reveal">
+        <div class="team-thumb"><img src="${a.img}" alt="${a.name}" loading="lazy" /></div>
+        <div class="team-body">
+          <div class="role">${a.role}</div>
+          <h3>${a.name}</h3>
+          <div class="area">${a.area}</div>
+          <div class="team-socials">
+            <a href="#" aria-label="LinkedIn">${icon('linkedin')}</a>
+            <a href="#" aria-label="Telefon">${icon('phone')}</a>
+          </div>
+        </div>
+      </article>`).join('');
+
+    document.getElementById('testiGrid').innerHTML = testimonials.map(t => `
+      <article class="testi-card reveal">
+        <div class="testi-stars">${icon('star').repeat(5)}</div>
+        <p class="testi-text">${t.text}</p>
+        <div class="testi-author">
+          <div class="testi-av">${t.initial}</div>
+          <div><div class="testi-name">${t.name}</div><div class="testi-meta">${t.meta}</div></div>
+        </div>
+      </article>`).join('');
+
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      drawer.classList.toggle('open');
+      document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+    });
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    function animateCount(el) {
+      const target = parseFloat(el.dataset.target);
+      const decimals = parseInt(el.dataset.decimals || '0');
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const duration = 2000;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = (target * eased).toFixed(decimals);
+        el.textContent = prefix + (decimals > 0 ? val : Math.floor(val).toLocaleString('tr-TR')) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const revealObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+
+    const countObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { animateCount(entry.target); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.5 });
+
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+      [{ id:'cName', test: v => v.trim().length > 1 }, { id:'cPhone', test: v => v.trim().length >= 7 }, { id:'cEmail', test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) }].forEach(f => {
+        const inp = document.getElementById(f.id);
+        const err = document.querySelector(`.field-err[data-for="${f.id}"]`);
+        if (err) { if (!f.test(inp.value)) { valid = false; inp.classList.add('error'); err.classList.add('show'); } else { inp.classList.remove('error'); err.classList.remove('show'); } }
+      });
+      if (valid) { form.reset(); document.getElementById('formSuccess').classList.add('show'); setTimeout(() => document.getElementById('formSuccess').classList.remove('show'), 6000); }
+    });
+    form.querySelectorAll('input, textarea').forEach(el => el.addEventListener('input', () => {
+      el.classList.remove('error');
+      const err = document.querySelector(`.field-err[data-for="${el.id}"]`);
+      if (err) err.classList.remove('show');
+    }));
+
+    renderListings();
+    lucide.createIcons();
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    document.querySelectorAll('[data-target]').forEach(el => countObs.observe(el));
+  </script>
+</body>
+</html>

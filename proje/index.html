@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEMO Proje — İstanbul Gayrimenkul Yatırım & Proje Danışmanlığı</title>
+  <meta name="description" content="DEMO Proje — İstanbul'da gayrimenkul yatırımı, proje geliştirme ve portföy yönetimi danışmanlığı." />
+  <meta name="theme-color" content="#0A0A0A" />
+
+  <meta property="og:title" content="DEMO Proje — Gayrimenkul Yatırım Danışmanlığı" />
+  <meta property="og:description" content="İstanbul'da akıllı gayrimenkul yatırımı için veriye dayalı danışmanlık." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg: #0A0A0A;
+      --bg2: #111111;
+      --bg3: #181818;
+      --border: #222222;
+      --border2: #2E2E2E;
+      --white: #FFFFFF;
+      --white2: #D4D4D4;
+      --white3: #888888;
+      --green: #22C55E;
+      --green-dim: rgba(34,197,94,0.12);
+      --green-border: rgba(34,197,94,0.25);
+      --amber: #F59E0B;
+      --red: #EF4444;
+
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Inter', sans-serif;
+
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 8rem;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      --transition: 0.25s ease;
+      --transition-slow: 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+
+      --max-width: 1280px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--white2);
+      line-height: 1.65;
+      font-weight: 400;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-md); }
+    .section { padding: var(--space-xl) 0; }
+    .section-head { max-width: 640px; margin-bottom: var(--space-lg); }
+    .section-head h2 { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3.4rem); color: var(--white); font-weight: 700; line-height: 1.1; margin: 0.8rem 0; }
+    .section-head p { color: var(--white3); font-size: 1rem; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--green);
+    }
+    .eyebrow::before { content: ''; width: 20px; height: 1.5px; background: var(--green); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.85rem 1.8rem;
+      font-family: var(--font-display);
+      font-size: 0.85rem; font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      letter-spacing: 0.02em;
+    }
+    .btn-green { background: var(--green); color: #000; }
+    .btn-green:hover { background: #16a34a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,197,94,0.3); }
+    .btn-outline { border: 1px solid var(--border2); color: var(--white2); }
+    .btn-outline:hover { border-color: var(--green); color: var(--green); }
+    .btn-ghost { border: 1px solid rgba(255,255,255,0.1); color: var(--white2); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.3); }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid transparent;
+      transition: all var(--transition);
+    }
+    .nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding: 0.9rem 0; border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; }
+    .logo span { color: var(--green); }
+    .logo small { display: block; font-family: var(--font-body); font-size: 0.48rem; font-weight: 400; letter-spacing: 0.3em; color: var(--white3); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { font-size: 0.84rem; font-weight: 500; color: var(--white3); transition: color var(--transition); }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { display: flex; align-items: center; gap: 1rem; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; width: 26px; }
+    .hamburger span { display: block; height: 1.5px; background: var(--white); transition: var(--transition); }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .drawer { position: fixed; inset: 0; z-index: 1050; background: rgba(10,10,10,0.98); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity var(--transition); }
+    .drawer.open { opacity: 1; pointer-events: all; }
+    .drawer a { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--white); }
+    .drawer a:hover { color: var(--green); }
+
+    /* Hero */
+    .hero { min-height: 100dvh; display: grid; align-items: center; padding-top: 5rem; position: relative; overflow: hidden; }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=1800&q=80') center/cover;
+    }
+    .hero-bg::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,10,0.97) 55%, rgba(10,10,10,0.6) 100%); }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(34,197,94,0.07) 0%, transparent 60%); }
+    .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--space-lg); align-items: center; width: 100%; }
+    .hero-content { max-width: 580px; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(3rem, 6.5vw, 5.5rem); font-weight: 800; color: var(--white); line-height: 1.0; margin: 1rem 0; letter-spacing: -0.03em; }
+    .hero h1 .hl { color: var(--green); }
+    .hero p { font-size: 1.05rem; color: var(--white3); max-width: 440px; margin-bottom: var(--space-md); }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: var(--space-md); }
+    .trust-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--white3); }
+    .trust-item svg { width: 14px; height: 14px; color: var(--green); }
+
+    /* ROI Card */
+    .roi-panel {
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex; flex-direction: column; gap: 1.2rem;
+    }
+    .roi-panel-head { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white3); }
+    .roi-row { display: flex; justify-content: space-between; align-items: flex-end; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .roi-row:last-child { border-bottom: none; }
+    .roi-lbl { font-size: 0.82rem; color: var(--white3); margin-bottom: 0.2rem; }
+    .roi-val { font-family: var(--font-display); font-size: 1.6rem; color: var(--white); font-weight: 700; }
+    .roi-change { font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: var(--radius-full); }
+    .pos { background: var(--green-dim); color: var(--green); }
+    .neu { background: rgba(245,158,11,0.12); color: var(--amber); }
+    .roi-spark { height: 36px; margin-top: 0.5rem; display: flex; align-items: flex-end; gap: 3px; }
+    .spark-bar { flex: 1; border-radius: 2px; background: var(--green); opacity: 0.5; transition: opacity var(--transition); }
+    .spark-bar:hover { opacity: 1; }
+    .roi-footer { font-size: 0.7rem; color: var(--white3); text-align: center; }
+
+    /* Stats */
+    .stats-strip { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stats-strip-grid { display: grid; grid-template-columns: repeat(5, 1fr); }
+    .ss-item { padding: 2rem 1.5rem; text-align: center; border-right: 1px solid var(--border); }
+    .ss-item:last-child { border-right: none; }
+    .ss-val { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); color: var(--white); font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+    .ss-lbl { font-size: 0.72rem; color: var(--white3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem; }
+
+    /* Projects grid */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .proj-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform var(--transition), border-color var(--transition);
+      position: relative;
+    }
+    .proj-card:hover { transform: translateY(-6px); border-color: var(--border2); }
+    .proj-thumb { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+    .proj-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-slow); }
+    .proj-card:hover .proj-thumb img { transform: scale(1.06); }
+    .proj-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%); }
+    .proj-status {
+      position: absolute; top: 1rem; left: 1rem; z-index: 2;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      border-radius: var(--radius-full);
+    }
+    .status-devam { background: var(--green); color: #000; }
+    .status-tamamlandi { background: var(--bg3); border: 1px solid var(--border2); color: var(--white2); }
+    .status-yakin { background: rgba(245,158,11,0.9); color: #000; }
+    .proj-roi-badge {
+      position: absolute; bottom: 1rem; right: 1rem; z-index: 2;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+      padding: 0.3rem 0.7rem;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem; font-weight: 700;
+    }
+    .proj-body { padding: 1.4rem; }
+    .proj-body h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+    .proj-loc { font-size: 0.8rem; color: var(--white3); display: flex; align-items: center; gap: 0.3rem; margin-bottom: 1rem; }
+    .proj-loc svg { width: 12px; height: 12px; color: var(--green); }
+    .proj-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .proj-price { font-family: var(--font-display); font-size: 1.3rem; color: var(--green); font-weight: 700; }
+    .proj-specs { display: flex; gap: 0.8rem; font-size: 0.76rem; color: var(--white3); }
+    .proj-specs span { display: flex; align-items: center; gap: 0.25rem; }
+    .proj-specs svg { width: 12px; height: 12px; }
+    .load-more-row { text-align: center; margin-top: var(--space-lg); }
+
+    /* Investment calculator */
+    .calc-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); align-items: start; }
+    .calc-form { display: flex; flex-direction: column; gap: 1.4rem; }
+    .calc-field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .calc-field label { font-size: 0.78rem; font-weight: 600; color: var(--white2); text-transform: uppercase; letter-spacing: 0.08em; }
+    .calc-field input, .calc-field select {
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      color: var(--white);
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body); font-size: 1rem; font-weight: 500;
+      transition: var(--transition); width: 100%;
+    }
+    .calc-field input:focus, .calc-field select:focus { outline: none; border-color: var(--green); }
+    .calc-field select option { background: var(--bg); }
+    .range-wrap { position: relative; }
+    .range-wrap input[type=range] {
+      width: 100%; height: 4px; border-radius: 2px;
+      appearance: none; -webkit-appearance: none;
+      background: linear-gradient(to right, var(--green) 0%, var(--green) var(--fill, 50%), var(--border2) var(--fill, 50%), var(--border2) 100%);
+      padding: 0; border: none;
+      cursor: pointer;
+    }
+    .range-wrap input[type=range]::-webkit-slider-thumb {
+      appearance: none; -webkit-appearance: none;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--green); border: 2px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.3);
+      cursor: pointer;
+    }
+    .range-val { position: absolute; top: -28px; right: 0; font-size: 0.82rem; font-weight: 600; color: var(--green); }
+
+    .calc-result {
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      position: sticky; top: 7rem;
+    }
+    .calc-result h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 1.4rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+    .result-row { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid var(--border); }
+    .result-row:last-of-type { border-bottom: none; }
+    .result-lbl { font-size: 0.82rem; color: var(--white3); }
+    .result-val { font-size: 0.95rem; font-weight: 600; color: var(--white); }
+    .result-highlight { background: var(--green-dim); border: 1px solid var(--green-border); border-radius: var(--radius-md); padding: 1.2rem; margin-top: 1.2rem; text-align: center; }
+    .result-highlight .big { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: var(--green); line-height: 1; }
+    .result-highlight .sub { font-size: 0.75rem; color: var(--green); opacity: 0.8; margin-top: 0.3rem; }
+    .calc-note { font-size: 0.7rem; color: var(--white3); text-align: center; margin-top: 1rem; }
+
+    /* Services */
+    .srv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .srv-card {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      padding: 1.6rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+    .srv-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+    .srv-ic { width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--radius-sm); background: var(--green-dim); display: flex; align-items: center; justify-content: center; }
+    .srv-ic svg { width: 22px; height: 22px; color: var(--green); }
+    .srv-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+    .srv-card p { font-size: 0.85rem; color: var(--white3); line-height: 1.6; }
+
+    /* Process */
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .step-card { padding: 1.6rem; border: 1px solid var(--border); border-radius: var(--radius-md); position: relative; }
+    .step-card::before { content: ''; position: absolute; top: 2rem; right: -1px; width: 1px; height: calc(100% - 4rem); background: var(--border); }
+    .step-card:last-child::before { display: none; }
+    .step-num { font-family: var(--font-display); font-size: 2.8rem; font-weight: 800; color: var(--border2); line-height: 1; margin-bottom: 0.8rem; }
+    .step-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+    .step-card p { font-size: 0.82rem; color: var(--white3); }
+
+    /* Testimonials */
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .testi-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.6rem; transition: var(--transition); }
+    .testi-card:hover { border-color: var(--border2); }
+    .testi-stars { display: flex; gap: 0.2rem; margin-bottom: 1rem; }
+    .testi-stars svg { width: 14px; height: 14px; color: var(--green); fill: var(--green); }
+    .testi-text { font-size: 0.92rem; color: var(--white2); line-height: 1.65; margin-bottom: 1.2rem; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 0.8rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .testi-av { width: 38px; height: 38px; border-radius: 50%; background: var(--green); color: #000; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1rem; font-weight: 700; }
+    .testi-name { color: var(--white); font-weight: 600; font-size: 0.88rem; }
+    .testi-meta { color: var(--white3); font-size: 0.74rem; }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+    .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .contact-form input, .contact-form textarea, .contact-form select {
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      color: var(--white);
+      padding: 0.88rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      width: 100%;
+      transition: var(--transition);
+    }
+    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { outline: none; border-color: var(--green); }
+    .contact-form select option { background: var(--bg); }
+    .contact-form textarea { resize: vertical; min-height: 110px; }
+    .contact-form .error { border-color: var(--red); }
+    .field-err { color: #f87171; font-size: 0.73rem; margin-top: -0.6rem; display: none; }
+    .field-err.show { display: block; }
+    #formSuccess { display: none; align-items: center; gap: 0.6rem; background: var(--green-dim); border: 1px solid var(--green-border); color: var(--green); padding: 0.9rem 1rem; border-radius: var(--radius-sm); font-size: 0.88rem; }
+    #formSuccess.show { display: flex; }
+    .contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
+    .cinfo-item { display: flex; gap: 1rem; }
+    .cinfo-ic { width: 42px; height: 42px; flex-shrink: 0; border: 1px solid var(--border2); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+    .cinfo-ic svg { width: 18px; height: 18px; color: var(--green); }
+    .cinfo-item h4 { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white3); margin-bottom: 0.15rem; }
+    .cinfo-item p { color: var(--white2); font-size: 0.9rem; }
+    .map-frame { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border2); filter: grayscale(1) invert(0.88) contrast(0.85); margin-top: 0.5rem; }
+    .map-frame iframe { width: 100%; height: 200px; border: 0; display: block; }
+
+    /* Footer */
+    footer { background: var(--bg2); border-top: 1px solid var(--border); padding-top: var(--space-lg); }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--space-md); padding-bottom: var(--space-lg); }
+    .footer-brand p { color: var(--white3); font-size: 0.85rem; max-width: 260px; margin-top: 0.7rem; line-height: 1.65; }
+    .footer-col h4 { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 1.1rem; }
+    .footer-col a { display: block; color: var(--white3); font-size: 0.85rem; padding: 0.28rem 0; transition: var(--transition); }
+    .footer-col a:hover { color: var(--white); padding-left: 5px; }
+    .footer-bottom { border-top: 1px solid var(--border); padding: 1.3rem 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.76rem; color: var(--white3); }
+    .footer-bottom a { color: var(--green); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    .reveal:nth-child(2) { transition-delay: 0.07s; }
+    .reveal:nth-child(3) { transition-delay: 0.14s; }
+    .reveal:nth-child(4) { transition-delay: 0.21s; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .stats-strip-grid { grid-template-columns: repeat(3, 1fr); }
+      .ss-item:nth-child(3) { border-right: none; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .calc-grid { grid-template-columns: 1fr; }
+      .calc-result { position: static; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .srv-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+    }
+    @media (max-width: 860px) {
+      :root { --space-xl: 5rem; --space-lg: 3rem; }
+      .nav-links, .nav-cta .btn { display: none; }
+      .hamburger { display: flex; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .roi-panel { display: none; }
+      .hero { padding-top: 7rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .container { padding: 0 1.2rem; }
+      .projects-grid, .testi-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .stats-strip-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#hero" class="logo">DEMO<span>.</span>proje<small>yatırım danışmanlığı</small></a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projeler</a></li>
+        <li><a href="#calculator">Hesaplama</a></li>
+        <li><a href="#services">Hizmetler</a></li>
+        <li><a href="#process">Süreç</a></li>
+        <li><a href="#contact">İletişim</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-green">Analiz Talep Et</a>
+        <button class="hamburger" id="hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="drawer" id="drawer">
+    <a href="#projects">Projeler</a>
+    <a href="#calculator">Hesaplama</a>
+    <a href="#services">Hizmetler</a>
+    <a href="#process">Süreç</a>
+    <a href="#contact">İletişim</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="eyebrow">Gayrimenkul Yatırım Danışmanlığı</span>
+        <h1>Doğru Proje,<br/><span class="hl">Doğru Getiri.</span></h1>
+        <p>İstanbul'daki gayrimenkul yatırımlarınızı veriye dayalı analizle şekillendiriyoruz. Proje geliştirmeden portföy yönetimine.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-green">Projeleri İncele <i data-lucide="arrow-right"></i></a>
+          <a href="#calculator" class="btn btn-ghost">ROI Hesapla</a>
+        </div>
+        <div class="trust-row">
+          <div class="trust-item"><i data-lucide="shield-check"></i> Lisanslı SPK Değerleme</div>
+          <div class="trust-item"><i data-lucide="bar-chart-2"></i> Veri Odaklı Analiz</div>
+          <div class="trust-item"><i data-lucide="lock"></i> Gizli Müşteri Sözleşmesi</div>
+        </div>
+      </div>
+      <div class="roi-panel">
+        <div class="roi-panel-head">Piyasa Özeti — İstanbul</div>
+        <div class="roi-row">
+          <div><div class="roi-lbl">Konut Fiyat Endeksi (YoY)</div><div class="roi-val" data-target="38.4" data-suffix="%" data-decimals="1">—</div></div>
+          <span class="roi-change pos">+38.4%</span>
+        </div>
+        <div class="roi-row">
+          <div><div class="roi-lbl">Ort. Kira Getirisi</div><div class="roi-val" data-target="4.8" data-suffix="%" data-decimals="1">—</div></div>
+          <span class="roi-change pos">+0.3 puan</span>
+        </div>
+        <div class="roi-row">
+          <div><div class="roi-lbl">Amortisman Süresi (Ort.)</div><div class="roi-val" data-target="21" data-suffix=" Yıl">—</div></div>
+          <span class="roi-change neu">Stabil</span>
+        </div>
+        <div>
+          <div class="roi-lbl">Fiyat Trendi (Son 12 Ay)</div>
+          <div class="roi-spark" id="sparkBars"></div>
+        </div>
+        <div class="roi-footer">* Endeks verileri illüstrasyon amaçlıdır.</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <section class="stats-strip">
+    <div class="container">
+      <div class="stats-strip-grid">
+        <div class="ss-item reveal"><div class="ss-val" data-target="1.2" data-prefix="₺" data-suffix=" Milyar" data-decimals="1">—</div><div class="ss-lbl">Yönetilen Portföy</div></div>
+        <div class="ss-item reveal"><div class="ss-val" data-target="340" data-suffix="+">—</div><div class="ss-lbl">Tamamlanan Proje</div></div>
+        <div class="ss-item reveal"><div class="ss-val" data-target="28" data-suffix="%">—</div><div class="ss-lbl">Ort. Yıllık ROI</div></div>
+        <div class="ss-item reveal"><div class="ss-val" data-target="95" data-suffix="%">—</div><div class="ss-lbl">Müşteri Tekrar Oranı</div></div>
+        <div class="ss-item reveal"><div class="ss-val" data-target="10" data-suffix=" Yıl">—</div><div class="ss-lbl">Sektör Deneyimi</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Aktif & Tamamlanan Projeler</span>
+        <h2>Proje Portföyümüz</h2>
+        <p>Konut, karma kullanım ve yatırım projelerinde danışmanlık verdiğimiz seçili örnekler.</p>
+      </div>
+      <div class="projects-grid" id="projectsGrid"></div>
+      <div class="load-more-row reveal">
+        <button class="btn btn-outline" id="loadMore">Tüm Projeler <i data-lucide="arrow-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section class="section calc-section" id="calculator">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Yatırım Simülasyonu</span>
+        <h2>ROI Hesaplayıcı</h2>
+        <p>Tahmini yatırım getirinizi anında hesaplayın. Detaylı analiz için danışmanlarımızla iletişime geçin.</p>
+      </div>
+      <div class="calc-grid">
+        <div class="calc-form reveal">
+          <div class="calc-field">
+            <label>Mülk Tipi</label>
+            <select id="calcType">
+              <option value="konut">Konut</option>
+              <option value="ofis">Ticari Ofis</option>
+              <option value="magaza">Mağaza / Dükkan</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label>Satın Alma Fiyatı (₺)</label>
+            <input type="number" id="calcPrice" value="5000000" min="500000" step="100000" />
+          </div>
+          <div class="calc-field">
+            <label>Aylık Kira Geliri (₺) <span style="color:var(--white3); font-weight:400">(tahmini)</span></label>
+            <div class="range-wrap">
+              <span class="range-val" id="rentVal">20.000</span>
+              <input type="range" id="calcRent" min="5000" max="200000" step="1000" value="20000" />
+            </div>
+          </div>
+          <div class="calc-field">
+            <label>Yıllık Değer Artışı (%)</label>
+            <div class="range-wrap">
+              <span class="range-val" id="appreciationVal">%25</span>
+              <input type="range" id="calcAppreciation" min="5" max="60" step="1" value="25" />
+            </div>
+          </div>
+          <div class="calc-field">
+            <label>Yatırım Süresi (Yıl)</label>
+            <div class="range-wrap">
+              <span class="range-val" id="periodVal">5 Yıl</span>
+              <input type="range" id="calcPeriod" min="1" max="20" step="1" value="5" />
+            </div>
+          </div>
+          <button class="btn btn-green" id="calcBtn" style="align-self:flex-start;"><i data-lucide="calculator"></i> Hesapla</button>
+        </div>
+        <div class="calc-result reveal">
+          <h3>Tahmin Sonuçları</h3>
+          <div class="result-row"><span class="result-lbl">Toplam Kira Geliri</span><span class="result-val" id="rKira">—</span></div>
+          <div class="result-row"><span class="result-lbl">Tahmini Değer Artışı</span><span class="result-val" id="rDeger">—</span></div>
+          <div class="result-row"><span class="result-lbl">Toplam Brüt Getiri</span><span class="result-val" id="rBrut">—</span></div>
+          <div class="result-row"><span class="result-lbl">Amortisman Süresi</span><span class="result-val" id="rAmor">—</span></div>
+          <div class="result-highlight">
+            <div class="big" id="rROI">—</div>
+            <div class="sub">Tahmini Toplam ROI</div>
+          </div>
+          <p class="calc-note">Bu hesaplayıcı yalnızca tahmini değerler sunar. Kesin analiz için danışmanlarımızla görüşün.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Hizmetlerimiz</span>
+        <h2>Yatırımın Her Adımında</h2>
+        <p>Proje geliştirmeden portföy optimizasyonuna tam kapsamlı danışmanlık.</p>
+      </div>
+      <div class="srv-grid">
+        <div class="srv-card reveal">
+          <div class="srv-ic"><i data-lucide="search"></i></div>
+          <div><h3>Fırsat Analizi</h3><p>Piyasa verileri ve lokasyon skorlamasıyla yüksek getirili mülk ve proje fırsatlarını tespit ediyoruz.</p></div>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-ic"><i data-lucide="file-bar-chart"></i></div>
+          <div><h3>Fizibilite & Değerleme</h3><p>SPK lisanslı değerleme uzmanlarıyla bağımsız piyasa değeri ve yatırım fizibilitesi raporları.</p></div>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-ic"><i data-lucide="layers"></i></div>
+          <div><h3>Proje Geliştirme</h3><p>Arsa tespitinden konsept geliştirmeye, mimari koordinasyondan satış planlamasına bütünleşik destek.</p></div>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-ic"><i data-lucide="pie-chart"></i></div>
+          <div><h3>Portföy Yönetimi</h3><p>Mevcut gayrimenkul portföyünüzün optimizasyonu, kira yönetimi ve çıkış stratejisi planlaması.</p></div>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-ic"><i data-lucide="globe-2"></i></div>
+          <div><h3>Yabancı Yatırımcı</h3><p>Türkiye'de yatırım yapan uluslararası yatırımcılara anahtar teslim danışmanlık ve hukuki destek.</p></div>
+        </div>
+        <div class="srv-card reveal">
+          <div class="srv-ic"><i data-lucide="refresh-cw"></i></div>
+          <div><h3>Dönüşüm & Yenileme</h3><p>Kentsel dönüşüm kapsamındaki mülkler için hukuki süreç, değerleme ve proje koordinasyonu.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="process">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Çalışma Yöntemimiz</span>
+        <h2>4 Adımda Yatırım</h2>
+        <p>Şeffaf ve sistematik bir süreçle ilk görüşmeden kapanışa kadar yanınızdayız.</p>
+      </div>
+      <div class="process-grid">
+        <div class="step-card reveal">
+          <div class="step-num">01</div>
+          <h3>Keşif Görüşmesi</h3>
+          <p>Yatırım hedeflerinizi, bütçenizi ve risk profilinizi anlıyoruz.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">02</div>
+          <h3>Analiz & Araştırma</h3>
+          <p>Piyasa verisi, lokasyon skorlaması ve fizibilite raporuyla en iyi seçenekleri sunuyoruz.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">03</div>
+          <h3>Müzakere & Kapanış</h3>
+          <p>Fiyat müzakeresinden tapu teslimine, hukuki süreçlerin tamamında yanınızdayız.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">04</div>
+          <h3>Portföy Takibi</h3>
+          <p>Yatırım sonrası düzenli raporlama ve portföy optimizasyon önerileri.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Referanslar</span>
+        <h2>Yatırımcılarımız Ne Diyor</h2>
+      </div>
+      <div class="testi-grid" id="testiGrid"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">İletişim</span>
+        <h2>Yatırım Analizi Talep Edin</h2>
+        <p>Formı doldurun, bir yatırım danışmanımız 24 saat içinde size ulaşsın.</p>
+      </div>
+      <div class="contact-grid">
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="form-row">
+            <div>
+              <input type="text" id="cName" placeholder="Ad Soyad" />
+              <div class="field-err" data-for="cName">Adınızı girin.</div>
+            </div>
+            <div>
+              <input type="tel" id="cPhone" placeholder="Telefon" />
+              <div class="field-err" data-for="cPhone">Telefon gerekli.</div>
+            </div>
+          </div>
+          <input type="email" id="cEmail" placeholder="E-posta" />
+          <div class="field-err" data-for="cEmail">Geçerli e-posta girin.</div>
+          <div class="form-row">
+            <select id="cBudget">
+              <option value="">Bütçe Aralığı</option>
+              <option>₺1M – ₺5M</option>
+              <option>₺5M – ₺15M</option>
+              <option>₺15M – ₺50M</option>
+              <option>₺50M+</option>
+            </select>
+            <select id="cGoal">
+              <option value="">Yatırım Amacı</option>
+              <option>Kira Getirisi</option>
+              <option>Değer Artışı</option>
+              <option>Proje Geliştirme</option>
+              <option>Vatandaşlık</option>
+            </select>
+          </div>
+          <textarea id="cMessage" placeholder="Notlar — lokasyon tercihi, mevcut portföy, beklentiler..."></textarea>
+          <button type="submit" class="btn btn-green"><i data-lucide="send"></i> Analiz Talep Et</button>
+          <div id="formSuccess"><i data-lucide="check-circle"></i> Talebiniz alındı! 24 saat içinde sizi arayacağız.</div>
+        </form>
+        <div class="contact-info reveal">
+          <div class="cinfo-item">
+            <div class="cinfo-ic"><i data-lucide="map-pin"></i></div>
+            <div><h4>Ofis</h4><p>Kanyon Ofis, Büyükdere Cad.<br/>Levent / İstanbul</p></div>
+          </div>
+          <div class="cinfo-item">
+            <div class="cinfo-ic"><i data-lucide="phone"></i></div>
+            <div><h4>Telefon</h4><p>+90 212 000 00 02</p></div>
+          </div>
+          <div class="cinfo-item">
+            <div class="cinfo-ic"><i data-lucide="mail"></i></div>
+            <div><h4>E-posta</h4><p>yatirim@demoproje.com</p></div>
+          </div>
+          <div class="cinfo-item">
+            <div class="cinfo-ic"><i data-lucide="clock"></i></div>
+            <div><h4>Saat</h4><p>Hafta içi 09:00 – 19:00</p></div>
+          </div>
+          <div class="map-frame">
+            <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Levent,Be%C5%9Fikta%C5%9F,%C4%B0stanbul&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="logo">DEMO<span>.</span>proje</a>
+          <p>İstanbul gayrimenkul yatırımlarında veriye dayalı danışmanlık. 10 yıldır güvenle.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Hızlı Linkler</h4>
+          <a href="#projects">Projeler</a>
+          <a href="#calculator">ROI Hesapla</a>
+          <a href="#services">Hizmetler</a>
+          <a href="#contact">İletişim</a>
+        </div>
+        <div class="footer-col">
+          <h4>Hizmetler</h4>
+          <a href="#services">Fırsat Analizi</a>
+          <a href="#services">Fizibilite</a>
+          <a href="#services">Proje Geliştirme</a>
+          <a href="#services">Portföy Yönetimi</a>
+        </div>
+        <div class="footer-col">
+          <h4>İletişim</h4>
+          <a href="#">+90 212 000 00 02</a>
+          <a href="#">yatirim@demoproje.com</a>
+          <a href="#">Levent, İstanbul</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 DEMO Proje Danışmanlık. Tüm hakları saklıdır.</span>
+        <span>Web tasarımı · <a href="#">studyo</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const projects = [
+      { id:1, title:"The Bosphorus Residence", loc:"Beşiktaş, İstanbul", status:"devam", statusLbl:"Devam Eden", roi:"+34% proj.", price:"₺6.500.000'den", m2:185, units:"42 Konut", img:"https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80" },
+      { id:2, title:"Maslak Business Tower", loc:"Maslak, İstanbul", status:"tamamlandi", statusLbl:"Tamamlandı", roi:"+41% ger.", price:"₺38.000.000", m2:2400, units:"Tam Kat", img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" },
+      { id:3, title:"Pendik Marina Konutları", loc:"Pendik, İstanbul", status:"yakin", statusLbl:"Yakında", roi:"+29% proj.", price:"₺4.200.000'den", m2:120, units:"78 Konut", img:"https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80" },
+      { id:4, title:"Kadıköy Karma Kullanım", loc:"Kadıköy, İstanbul", status:"tamamlandi", statusLbl:"Tamamlandı", roi:"+52% ger.", price:"₺18.500.000", m2:1100, units:"Karma", img:"https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800&q=80" },
+      { id:5, title:"Ataşehir Rezidans", loc:"Ataşehir, İstanbul", status:"devam", statusLbl:"Devam Eden", roi:"+27% proj.", price:"₺5.800.000'den", m2:155, units:"56 Konut", img:"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80" },
+      { id:6, title:"Zekeriyaköy Villa Projesi", loc:"Sarıyer, İstanbul", status:"yakin", statusLbl:"Yakında", roi:"+38% proj.", price:"₺22.000.000'den", m2:520, units:"12 Villa", img:"https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80" }
+    ];
+
+    const testimonials = [
+      { text:"ROI hesaplamalarında kullandıkları metodoloji son derece sağlam. Beklentilerin üzerinde getiri elde ettik.", name:"Ahmet B.", meta:"Bireysel Yatırımcı", initial:"A" },
+      { text:"Yabancı yatırımcı olarak Türkiye'de proje geliştirmek kolay değil. DEMO Proje süreci A'dan Z'ye yönetti.", name:"Michael S.", meta:"Uluslararası Yatırımcı", initial:"M" },
+      { text:"Portföy yönetimi hizmeti sayesinde 3 mülkümün ortalama getirisi %18 arttı. Kesinlikle tavsiye ederim.", name:"Nuray K.", meta:"Portföy Yatırımcısı", initial:"N" }
+    ];
+
+    const icon = n => `<i data-lucide="${n}"></i>`;
+    const INITIAL = 6;
+
+    document.getElementById('projectsGrid').innerHTML = projects.map((p, i) => `
+      <article class="proj-card ${i >= INITIAL ? 'hidden-p' : ''}">
+        <div class="proj-thumb">
+          <span class="proj-status status-${p.status}">${p.statusLbl}</span>
+          <span class="proj-roi-badge">${p.roi}</span>
+          <img src="${p.img}" alt="${p.title}" loading="lazy" />
+        </div>
+        <div class="proj-body">
+          <h3>${p.title}</h3>
+          <div class="proj-loc">${icon('map-pin')} ${p.loc}</div>
+          <div class="proj-meta">
+            <div class="proj-price">${p.price}</div>
+            <div class="proj-specs">
+              <span>${icon('maximize')} ${p.m2}m²</span>
+              <span>${icon('layers')} ${p.units}</span>
+            </div>
+          </div>
+        </div>
+      </article>`).join('');
+
+    document.getElementById('testiGrid').innerHTML = testimonials.map(t => `
+      <article class="testi-card reveal">
+        <div class="testi-stars">${icon('star').repeat(5)}</div>
+        <p class="testi-text">${t.text}</p>
+        <div class="testi-author">
+          <div class="testi-av">${t.initial}</div>
+          <div><div class="testi-name">${t.name}</div><div class="testi-meta">${t.meta}</div></div>
+        </div>
+      </article>`).join('');
+
+    document.getElementById('loadMore').addEventListener('click', function () {
+      document.querySelectorAll('.hidden-p').forEach((c, i) => {
+        c.classList.remove('hidden-p');
+        c.style.opacity = 0; c.style.transform = 'translateY(24px)';
+        c.style.transition = 'opacity .5s ease, transform .5s ease';
+        requestAnimationFrame(() => setTimeout(() => { c.style.opacity = 1; c.style.transform = 'none'; }, i * 70));
+      });
+      this.style.display = 'none';
+    });
+
+    // Spark bars
+    const sparkHeights = [30, 40, 35, 55, 48, 62, 58, 70, 65, 80, 75, 100];
+    document.getElementById('sparkBars').innerHTML = sparkHeights.map(h => `<div class="spark-bar" style="height:${h}%"></div>`).join('');
+
+    // Calculator
+    function formatMoney(n) {
+      if (n >= 1e9) return '₺' + (n / 1e9).toFixed(2) + ' Milyar';
+      if (n >= 1e6) return '₺' + (n / 1e6).toFixed(2) + ' Milyon';
+      return '₺' + n.toLocaleString('tr-TR');
+    }
+    function calcROI() {
+      const price = parseFloat(document.getElementById('calcPrice').value) || 5000000;
+      const rent = parseFloat(document.getElementById('calcRent').value) || 20000;
+      const appreciation = parseFloat(document.getElementById('calcAppreciation').value) / 100;
+      const years = parseFloat(document.getElementById('calcPeriod').value);
+      const totalRent = rent * 12 * years;
+      const finalVal = price * Math.pow(1 + appreciation, years);
+      const valueGain = finalVal - price;
+      const totalReturn = totalRent + valueGain;
+      const roi = (totalReturn / price) * 100;
+      const amort = price / (rent * 12);
+      document.getElementById('rKira').textContent = formatMoney(Math.round(totalRent));
+      document.getElementById('rDeger').textContent = formatMoney(Math.round(valueGain));
+      document.getElementById('rBrut').textContent = formatMoney(Math.round(totalReturn));
+      document.getElementById('rAmor').textContent = amort.toFixed(1) + ' Yıl';
+      document.getElementById('rROI').textContent = '+' + roi.toFixed(0) + '%';
+    }
+
+    function updateRange(id, displayId, formatter) {
+      const el = document.getElementById(id);
+      const display = document.getElementById(displayId);
+      function update() {
+        const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+        el.style.setProperty('--fill', pct + '%');
+        display.textContent = formatter(el.value);
+      }
+      el.addEventListener('input', update);
+      update();
+    }
+    updateRange('calcRent', 'rentVal', v => parseInt(v).toLocaleString('tr-TR'));
+    updateRange('calcAppreciation', 'appreciationVal', v => '%' + v);
+    updateRange('calcPeriod', 'periodVal', v => v + ' Yıl');
+    document.getElementById('calcBtn').addEventListener('click', calcROI);
+    calcROI();
+
+    // Nav
+    window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40));
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      drawer.classList.toggle('open');
+      document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+    });
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    // Countup
+    function animateCount(el) {
+      const target = parseFloat(el.dataset.target);
+      const decimals = parseInt(el.dataset.decimals || '0');
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const dur = 2000;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = (target * eased).toFixed(decimals);
+        el.textContent = prefix + (decimals > 0 ? val : Math.floor(val).toLocaleString('tr-TR')) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const revealObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    const countObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); obs.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+
+    // Form
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+      [{ id:'cName', test: v => v.trim().length > 1 }, { id:'cPhone', test: v => v.trim().length >= 7 }, { id:'cEmail', test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) }].forEach(f => {
+        const inp = document.getElementById(f.id);
+        const err = document.querySelector(`.field-err[data-for="${f.id}"]`);
+        if (err) { if (!f.test(inp.value)) { valid = false; inp.classList.add('error'); err.classList.add('show'); } else { inp.classList.remove('error'); err.classList.remove('show'); } }
+      });
+      if (valid) { form.reset(); document.getElementById('formSuccess').classList.add('show'); setTimeout(() => document.getElementById('formSuccess').classList.remove('show'), 6000); }
+    });
+    form.querySelectorAll('input, textarea').forEach(el => el.addEventListener('input', () => {
+      el.classList.remove('error');
+      const err = document.querySelector(`.field-err[data-for="${el.id}"]`);
+      if (err) err.classList.remove('show');
+    }));
+
+    lucide.createIcons();
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    document.querySelectorAll('[data-target]').forEach(el => countObs.observe(el));
+  </script>
+</body>
+</html>
